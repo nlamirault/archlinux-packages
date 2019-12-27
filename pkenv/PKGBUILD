@@ -15,7 +15,7 @@
 # Original Maintainer: Nicolas Lamirault <nicolas.lamirault@gmail.com>
 
 pkgname=pkenv
-pkgver=0.4.0
+pkgver=0.5.0
 pkgrel=1
 epoch=
 pkgdesc="Packer version manager inspired by tfenv"
@@ -45,4 +45,4 @@ package() {
 	done
 	chmod +x ${pkgdir}/usr/local/bin/${pkgname}
 }
-sha256sums=(d999c07a57d3235537c5124c95030662588f5a89c3e2d79db94433edb87dd46b)
+sha256sums=(95af42f51716b687ad4dfd59307d1d5041621a6d3344a752757c677bc5887d6d)
