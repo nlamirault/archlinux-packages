@@ -33,7 +33,6 @@ source=("https://github.com/tfutils/tfenv/archive/v${version}.tar.gz")
 validpgpkeys=()
 
 package() {
-	echo "=========== ${version}"
 	cd "${srcdir}/${pkgname}-${version}"
 	mkdir -p "${pkgdir}/usr/local/bin"
 	mkdir -p "${pkgdir}/usr/local/lib/tfenv/libexec"
