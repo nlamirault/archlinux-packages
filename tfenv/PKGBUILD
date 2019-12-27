@@ -1,0 +1,50 @@
+# Copyright (C) 2019 Nicolas Lamirault <nicolas.lamirault@gmail.com>
+
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Original Maintainer: Nicolas Lamirault <nicolas.lamirault@gmail.com>
+
+pkgname=tfenv
+pkgver=v2.0.0_alpha3
+version=2.0.0-alpha3
+pkgrel=1
+epoch=
+pkgdesc="Terraform version manager inspired by rbenv"
+arch=("x86_64")
+url="https://github.com/tfutils/tfenv"
+license=('MIT')
+groups=()
+depends=()
+makedepends=()
+checkdepends=()
+optdepends=()
+provides=("tfenv")
+source=("https://github.com/tfutils/tfenv/archive/v${version}.tar.gz")
+validpgpkeys=()
+
+package() {
+	echo "=========== ${version}"
+	cd "${srcdir}/${pkgname}-${version}"
+	mkdir -p "${pkgdir}/usr/local/bin"
+	mkdir -p "${pkgdir}/usr/local/lib/tfenv/libexec"
+	echo $srcdir
+	ls -lah
+	sed -i 's:KZENV_ROOT="$(cd "$(dirname "$(readlink_f "${0}")")/.." \&\& pwd)":KZENV_ROOT="$(cd "$(dirname "$(readlink_f "${0}")")/../lib/tfenv" \&\& pwd)":' bin/tfenv
+	install -m755 "bin/${pkgname}" "${pkgdir}/usr/local/bin/${pkgname}"
+	install -m755 "bin/terraform" "${pkgdir}/usr/local/bin/terraform"
+	for i in `ls ${srcdir}/${pkgname}-${version}/libexec/`; do
+		install -m755 "${srcdir}/${pkgname}-${version}/libexec/$i" "${pkgdir}/usr/local/lib/tfenv/libexec/$i"
+	done
+	chmod +x ${pkgdir}/usr/local/bin/${pkgname}
+}
+sha256sums=(93ecc6f6a0c81706268f1fd4bbf6d0850f6ef278a4aa365784569d1be96825e4)
